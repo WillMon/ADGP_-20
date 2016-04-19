@@ -13,9 +13,10 @@ class Node(object):
 		self.F = self.G + self.H
 	def getH(self):
 		tempNode = Node()
+		count = 0
 	def getG(self, c_grid):
 		for n in c_grid:
-			
+			++count
 		
 		
 		
