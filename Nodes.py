@@ -23,37 +23,38 @@ class Node(object):
 	#nl.sort(key lambda x: x: x.f)
 class AStar(object):
 
-	def __init__(self, Start, End, Openl):
-		self.Openl = Openl
+	def __init__(self, Start, End, Openl, surchSpace):
+		self.Openl = []
+		closeL = []		
 		self.Start = Start
 		self.End = End 
-		closeL = None
-		pathDone = false 
+		self.currentNode = self.Openl[self.Stat] 
+		self.pathDone = false 
 	
-	def Adj(self):
-		temp = []
-		count= 0
-		rowL
-		placeHolder = 0
-		for n in self.Openl:
-			++count 
-		rowL = count/count 
-		parent = self.Openl[self.Stat]
-		self.Openl[self.Start + rowL + 1].parent = parent
-		self.Openl[self.Start + rowL - 1].parent = parent
-		self.Openl[self.Start - rowL].parent = parent
-		self.Openl[self.Start - rowL + 1].parent = parent
-		self.Openl[self.Start - rowL - 1].parent = parent
-		self.Openl[self.Start + 1].parent = parent
-		self.Openl[self.Start - 1].parent = parent
 		
-	def Gcost
-		
+			
 		
 	def closeL(self):
 		return self.closeL
 		
 		
+	def adjParent(self):
+		temp = []
+		count= 0
+		rowL = 0
+		placeHolder = 0
+		for n in self.Openl:
+			++count 
+		rowL = count/count 
+		self.Openl[self.Start + rowL + 1].parent = self.currentNode
+		self.Openl[self.Start + rowL - 1].parent = self.currentNode
+		self.Openl[self.Start - rowL].parent = self.currentNode
+		self.Openl[self.Start - rowL + 1].parent = self.currentNode
+		self.Openl[self.Start - rowL - 1].parent = self.currentNode
+		self.Openl[self.Start + 1].parent = self.currentNode
+		self.Openl[self.Start - 1].parent = self.currentNode
 		
+	def adjGcost(self):
+		for 
 	
 	
