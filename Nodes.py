@@ -25,7 +25,8 @@ class AStar(object):
 
 	def __init__(self, Start, End, Openl, surchSpace):
 		self.Openl = []
-		closeL = []		
+		self.closeL = []		
+		self.surchSpace = surchSpace
 		self.Start = Start
 		self.End = End 
 		self.currentNode = self.Openl[self.Stat] 
@@ -40,21 +41,56 @@ class AStar(object):
 		
 	def adjParent(self):
 		temp = []
-		count= 0
-		rowL = 0
+		count = 0
 		placeHolder = 0
-		for n in self.Openl:
+		for n in self.surchSpace:
 			++count 
 		rowL = count/count 
-		self.Openl[self.Start + rowL + 1].parent = self.currentNode
-		self.Openl[self.Start + rowL - 1].parent = self.currentNode
-		self.Openl[self.Start - rowL].parent = self.currentNode
-		self.Openl[self.Start - rowL + 1].parent = self.currentNode
-		self.Openl[self.Start - rowL - 1].parent = self.currentNode
-		self.Openl[self.Start + 1].parent = self.currentNode
-		self.Openl[self.Start - 1].parent = self.currentNode
+		
+		self.Openl.append(self.surchSpace[self.Start - rowL + 1])
+		self.Openl.append(self.surchSpace[self.Start - rowL - 1])
+		self.Openl.append(self.surchSpace[self.Start - rowl])
+		self.Openl.append(self.surchSpace[self.Start + rowL + 1])
+		self.Openl.append(self.surchSpace[self.Start + rowL - 1])
+		self.Openl.append(self.surchSpace[self.Start + rowL])
+		
+		self.Openl.append(self.surchSpace[self.Start + 1])
+		self.Openl.append(self.surchSpace[self.Start - 1])
+		
+		self.Openl.append(currentNode)
+		
+		self.Openl[0].parent = parent
+		self.Openl[1].parent = parent
+		self.Openl[2].parent = parent
+		self.Openl[3].parent = parent
+		self.Openl[4].parent = parent
+		self.Openl[5].parent = parent
+		
 		
 	def adjGcost(self):
-		for 
+		for n in self.surchSpace:
+			if n.x == self.currentNode.x + 1 and n.y == self.currentNode.x + 1:
+				n.g = currentNode.g + 14
+			if n.x == self.currentNode.x - 1 and n.y == self.currentNode.x - 1:
+				n.g = currentNode.g + 14
+			if n.x == self.currentNode.x + 1 and n.y == self.currentNode.x - 1:
+				n.g = currentNode.g + 14
+			if n.x == self.currentNode.x - 1 and n.y == self.currentNode.x + 1:
+				n.g = currentNode.g + 14
+	
+	
+	
+	
+	
+	def ManhatenDis(node1,node2):
+		 if node1.x > node2.y or node1.x < node2:
+			x_Axes = node1.x - node2.x
+			if x_Axes < 0:x_Axes = -()x_Axes) 
+			
+		else if node1.y > node2.y or node1.y < node2.y:
+			y_Axes = node1.y - node2.y
+			if x_Axes < 0: y_Axes = -(y_Axes) 
+			
+		return x_Axes + y_Axes
 	
 	
