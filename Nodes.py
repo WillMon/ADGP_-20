@@ -1,10 +1,12 @@
 class Node(object):
 
-	def __init__(self, x = 0, y=0):
+	def __init__(self, Index x = 0, y=0):
 		
 		self.x = x
 		self.y = y
+		self.Index = Index
 		self.parent = None
+		self.walk = True
 		self.G = None
 		self.H = None
 		self.F = None
@@ -23,7 +25,7 @@ class Node(object):
 	#nl.sort(key lambda x: x: x.f)
 class AStar(object):
 
-	def __init__(self, Start, End, Openl, surchSpace):
+	def __init__(self,Start, End, Openl, surchSpace):
 		self.Openl = []
 		self.closeL = []		
 		self.surchSpace = surchSpace
@@ -32,21 +34,36 @@ class AStar(object):
 		self.currentNode = self.Openl[self.Stat] 
 		self.pathDone = false 
 	
-		
-			
-		
+	
+	
 	def closeL(self):
 		return self.closeL
 		
 		
 	def adjParent(self):
-		temp = []
-		count = 0
-		placeHolder = 0
 		for n in self.surchSpace:
-			++count 
-		rowL = count/count 
+			if n.x == self.currentNode.x + 1 and n.y == self.self.currentNode.y:
+				self.Openl.append(n)
+			if n.x == self.currentNode.x - 1 and n.y == self.self.currentNode.y:
+				self.Openl.append(n)	
+			if n.y == self.currentNode.y + 1 and n.x == self.self.currentNode.x:
+				self.Openl.append(n)
+			if n.y == self.currentNode.y - 1 and n.x == self.self.currentNode.x:
+				self.Openl.append(n)	
+			if n.x == self.currentNode.x + 2 and n.y == self.self.currentNode.y:
+				self.Openl.append(n)
+			if n.x == self.currentNode.x - 2 and n.y == self.self.currentNode.y:
+				self.Openl.append(n)	
+			if n.y == self.currentNode.y + 2 and n.x == self.self.currentNode.x:
+				self.Openl.append(n)
+			if n.y == self.currentNode.y - 2 and n.x == self.self.currentNode.x:
+				self.Openl.append(n)	
+				
+		self.Openl.append(currentNode)
 		
+		'''for n in self.surchSpace:
+			++count 
+		rowL = count/count
 		self.Openl.append(self.surchSpace[self.Start - rowL + 1])
 		self.Openl.append(self.surchSpace[self.Start - rowL - 1])
 		self.Openl.append(self.surchSpace[self.Start - rowl])
@@ -57,7 +74,7 @@ class AStar(object):
 		self.Openl.append(self.surchSpace[self.Start + 1])
 		self.Openl.append(self.surchSpace[self.Start - 1])
 		
-		self.Openl.append(currentNode)
+		self.Openl.append(currentNode)'''
 		
 		self.Openl[0].parent = parent
 		self.Openl[1].parent = parent
@@ -77,20 +94,11 @@ class AStar(object):
 				n.g = currentNode.g + 14
 			if n.x == self.currentNode.x - 1 and n.y == self.currentNode.x + 1:
 				n.g = currentNode.g + 14
+
+				
+	def ManhattanDis(node1,node2):
+		return 10*(abs(node1.x-node2.x) + abs(node1.y-node2.y))
 	
 	
-	
-	
-	
-	def ManhatenDis(node1,node2):
-		 if node1.x > node2.y or node1.x < node2:
-			x_Axes = node1.x - node2.x
-			if x_Axes < 0:x_Axes = -()x_Axes) 
-			
-		else if node1.y > node2.y or node1.y < node2.y:
-			y_Axes = node1.y - node2.y
-			if x_Axes < 0: y_Axes = -(y_Axes) 
-			
-		return x_Axes + y_Axes
 	
 	
