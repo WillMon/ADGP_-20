@@ -23,16 +23,37 @@ class Node(object):
 	#nl.sort(key lambda x: x: x.f)
 class AStar(object):
 
-	def __init__(self, nl):
-		self.NodeList = nl
-		self.currentNode = Node()
+	def __init__(self, Start, End, Openl):
+		self.Openl = Openl
+		self.Start = Start
+		self.End = End 
+		closeL = None
+		pathDone = false 
 	
-	def sort(self):
+	def Adj(self):
 		temp = []
+		count= 0
+		rowL
 		placeHolder = 0
-		for n in self.NodeList:
-			if 
-			
+		for n in self.Openl:
+			++count 
+		rowL = count/count 
+		parent = self.Openl[self.Stat]
+		self.Openl[self.Start + rowL + 1].parent = parent
+		self.Openl[self.Start + rowL - 1].parent = parent
+		self.Openl[self.Start - rowL].parent = parent
+		self.Openl[self.Start - rowL + 1].parent = parent
+		self.Openl[self.Start - rowL - 1].parent = parent
+		self.Openl[self.Start + 1].parent = parent
+		self.Openl[self.Start - 1].parent = parent
+		
+	def Gcost
+		
+		
+	def closeL(self):
+		return self.closeL
+		
+		
 		
 	
 	
