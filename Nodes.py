@@ -1,15 +1,15 @@
 class Node(object):
-
-	def __init__(self, Index x = 0, y=0):
+	#What a node is defined as 
+	def __init__(self,x = 0, y=0):
 		
 		self.x = x
 		self.y = y
-		self.Index = Index
+		self.Index = 0
 		self.parent = None
 		self.walk = True
-		self.G = None
-		self.H = None
-		self.F = None
+		self.G = 0
+		self.H = 0
+		self.F = self.G + self.H
 		
 	def setF(self):
 		self.F = self.G + self.H
@@ -21,83 +21,74 @@ class Node(object):
 			++count
 		
 		
-		
 	#nl.sort(key lambda x: x: x.f)
 class AStar(object):
-
-	def __init__(self,Start, End, Openl, surchSpace):
+	#AStar Constructer 
+	def __init__(self,Start, End, searchSpace):
 		self.Openl = []
 		self.closeL = []		
-		self.surchSpace = surchSpace
+		self.searchSpace = searchSpace
 		self.Start = Start
 		self.End = End 
 		self.currentNode = self.Openl[self.Stat] 
 		self.pathDone = false 
+	#Checks for walkable Nodes 
+	def unWalkable(self):
+		for n in self.searchSpace:
+			if n.x == 0 or n.x == ((len(searchSpace)/len(searchSpace)) - 1):
+				n.walk = False
+			else if n.y == 0 or n.y == ((len(searchSpace)/len(searchSpace)) - 1):
+				n.walk = False
+			else:
+				n.walk =  True
+	#Sets current not to current nodes adjacent	from the Open List	
+	def adjParent(self):
+		for n in self.Openl:
+			if not n == self.currentNode:
+				n.parent = currentNode
+	# Places current nodes in along with its adjacenta in the Open List form the searchSpace 			
+	def adj(self):
+		rowL = 0
+ 		count = 0
+  		adjHolder []
+ 		for n in self.searchSpace:
+  			++count 
+  		rowL = count/count 
+		
+		adjHolder.append(self.currentNode)
+ 		adjHolder.append(self.searchSpace[self.currentNode.Index - rowL])
+		adjHolder.append(self.searchSpace[self.currentNode.Index + rowL])
+		adjHolder.append(self.searchSpace[self.currentNode.Index + 1])
+		adjHolder.append(self.searchSpace[self.currentNode.Index - 1])
+		adjHolder.append(self.searchSpace[self.currentNode.Index + rowL + 1])
+ 		adjHolder.append(self.searchSpace[self.currentNodet.Index + rowL - 1])
+ 		adjHolder.append(self.searchSpace[self.currentNode.Index - rowL + 1])
+ 		adjHolder.append(self.searchSpace[self.currentNode.Index - rowL - 1])
+ 		
+ 		
+		for ah adjHolder:
+			if ah.walk:
+				self.Openl.append(ah)
+ 	
+	#Sets the adajcent Nodes G Coast 	
+	def adjGcost(self):
 	
-	
+		count = 1
+		for ol in self.Openl:
+			
+			if count < 5:
+				ol.G = 10
+			else:
+				ol.G = 14
 	
 	def closeL(self):
-		return self.closeL
+		self.closeL.append(currentNode)
 		
-		
-	def adjParent(self):
-		for n in self.surchSpace:
-			if n.x == self.currentNode.x + 1 and n.y == self.self.currentNode.y:
-				self.Openl.append(n)
-			if n.x == self.currentNode.x - 1 and n.y == self.self.currentNode.y:
-				self.Openl.append(n)	
-			if n.y == self.currentNode.y + 1 and n.x == self.self.currentNode.x:
-				self.Openl.append(n)
-			if n.y == self.currentNode.y - 1 and n.x == self.self.currentNode.x:
-				self.Openl.append(n)	
-			if n.x == self.currentNode.x + 2 and n.y == self.self.currentNode.y:
-				self.Openl.append(n)
-			if n.x == self.currentNode.x - 2 and n.y == self.self.currentNode.y:
-				self.Openl.append(n)	
-			if n.y == self.currentNode.y + 2 and n.x == self.self.currentNode.x:
-				self.Openl.append(n)
-			if n.y == self.currentNode.y - 2 and n.x == self.self.currentNode.x:
-				self.Openl.append(n)	
-				
-		self.Openl.append(currentNode)
-		
-		'''for n in self.surchSpace:
-			++count 
-		rowL = count/count
-		self.Openl.append(self.surchSpace[self.Start - rowL + 1])
-		self.Openl.append(self.surchSpace[self.Start - rowL - 1])
-		self.Openl.append(self.surchSpace[self.Start - rowl])
-		self.Openl.append(self.surchSpace[self.Start + rowL + 1])
-		self.Openl.append(self.surchSpace[self.Start + rowL - 1])
-		self.Openl.append(self.surchSpace[self.Start + rowL])
-		
-		self.Openl.append(self.surchSpace[self.Start + 1])
-		self.Openl.append(self.surchSpace[self.Start - 1])
-		
-		self.Openl.append(currentNode)'''
-		
-		self.Openl[0].parent = parent
-		self.Openl[1].parent = parent
-		self.Openl[2].parent = parent
-		self.Openl[3].parent = parent
-		self.Openl[4].parent = parent
-		self.Openl[5].parent = parent
-		
-		
-	def adjGcost(self):
-		for n in self.surchSpace:
-			if n.x == self.currentNode.x + 1 and n.y == self.currentNode.x + 1:
-				n.g = currentNode.g + 14
-			if n.x == self.currentNode.x - 1 and n.y == self.currentNode.x - 1:
-				n.g = currentNode.g + 14
-			if n.x == self.currentNode.x + 1 and n.y == self.currentNode.x - 1:
-				n.g = currentNode.g + 14
-			if n.x == self.currentNode.x - 1 and n.y == self.currentNode.x + 1:
-				n.g = currentNode.g + 14
-
-				
-	def ManhattanDis(node1,node2):
-		return 10*(abs(node1.x-node2.x) + abs(node1.y-node2.y))
+	
+	#Uses the Manhattan Formula to set the H for the nodes in the Search Space
+	def ManhattanDis(self):
+		for n in self.searchSpace:
+		n.H = 10*(abs(n.x - End.x) + abs(n.y - End.y))
 	
 	
 	

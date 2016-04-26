@@ -9,10 +9,15 @@ def main():
 	for x in range(10):
 		for y in range(10):
 			n = Node(x,y)
+			n.Index = count
 			searchSpace.append(n)
 			++count
-	AStarGrid = AStar()		
 			
+	AStarGrid = AStar(searchSpace[4],searchSpace[76], searchSpace)		
+	AStarGrid.ManhattanDis()
+	AStarGrid.unWalkable()
+	AStarGrid.adj()
+	AStarGrid.adjParent()
 			
 		
 	pygame.init()
