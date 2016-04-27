@@ -11,14 +11,14 @@ class Node(object):
 		self.H = 0
 		self.F = self.G + self.H
 		
-	def setF(self):
+	'''def setF(self):
 		self.F = self.G + self.H
 	def getH(self):
 		tempNode = Node()
 		count = 0
 	def getG(self, c_grid):
 		for n in c_grid:
-			++count
+			++count'''
 		
 		
 	#nl.sort(key lambda x: x: x.f)
@@ -30,30 +30,41 @@ class AStar(object):
 		self.searchSpace = searchSpace
 		self.Start = Start
 		self.End = End 
-		self.currentNode = self.Openl[self.Stat] 
-		self.pathDone = false 
+		self.currentNode = self.Start
+		self.pathDone = True
+		
+		
 	#Checks for walkable Nodes 
 	def unWalkable(self):
 		for n in self.searchSpace:
-			if n.x == 0 or n.x == ((len(searchSpace)/len(searchSpace)) - 1):
+			if n.x == 0 or n.x == ((len(self.searchSpace)/len(self.searchSpace)) - 1):
 				n.walk = False
-			else if n.y == 0 or n.y == ((len(searchSpace)/len(searchSpace)) - 1):
+			if n.y == 0 or n.y == ((len(self.searchSpace)/len(self.searchSpace)) - 1):
 				n.walk = False
 			else:
 				n.walk =  True
-	#Sets current not to current nodes adjacent	from the Open List	
+	def AddStartingNode(self):
+		self.Openl.append(self.Start)
+	
+	def LowestF(self):
+		lowestF = -1 
+		nodeWithLowestF = None
+		for n in self.Openl:
+			lowestF =  n.F
+			nodeWithLowestF = n 
+		self.currentNode = nodeWithLowestF
+	
+	'''#Sets current node to its adjacent 
 	def adjParent(self):
 		for n in self.Openl:
 			if not n == self.currentNode:
-				n.parent = currentNode
-	# Places current nodes in along with its adjacenta in the Open List form the searchSpace 			
+				n.parent = currentNode'''
+				
+	# Places current nodes adjacents in the Open List
+	#aslong as its walkable or not already in the Open List  			
 	def adj(self):
-		rowL = 0
- 		count = 0
-  		adjHolder []
- 		for n in self.searchSpace:
-  			++count 
-  		rowL = count/count 
+  		adjHolder = []
+		rowL = 10
 		
 		adjHolder.append(self.currentNode)
  		adjHolder.append(self.searchSpace[self.currentNode.Index - rowL])
@@ -61,35 +72,38 @@ class AStar(object):
 		adjHolder.append(self.searchSpace[self.currentNode.Index + 1])
 		adjHolder.append(self.searchSpace[self.currentNode.Index - 1])
 		adjHolder.append(self.searchSpace[self.currentNode.Index + rowL + 1])
- 		adjHolder.append(self.searchSpace[self.currentNodet.Index + rowL - 1])
+ 		adjHolder.append(self.searchSpace[self.currentNode.Index + rowL - 1])
  		adjHolder.append(self.searchSpace[self.currentNode.Index - rowL + 1])
  		adjHolder.append(self.searchSpace[self.currentNode.Index - rowL - 1])
  		
- 		
-		for ah adjHolder:
-			if ah.walk:
+		ph = set(adjHolder)
+		ol = set(self.Openl)
+		
+		for ah in adjHolder:
+			if(not ah.walk or not ph.intersection(ol)):
+				ah.parent = self.currentNode
 				self.Openl.append(ah)
  	
-	#Sets the adajcent Nodes G Coast 	
+	#Sets the adjacent Nodes G Coast 	
 	def adjGcost(self):
-	
-		count = 1
 		for ol in self.Openl:
 			
-			if count < 5:
-				ol.G = 10
-			else:
+			if abs(ol.Index - self.current.Index)  == 11 or abs(ol.Index - self.current.Index) == 9 :
 				ol.G = 14
+			else:
+				ol.G = 10
 	
-	def closeL(self):
-		self.closeL.append(currentNode)
+	'''def closeL(self):
+		self.closeL.append(currentNode)'''
 		
 	
 	#Uses the Manhattan Formula to set the H for the nodes in the Search Space
 	def ManhattanDis(self):
 		for n in self.searchSpace:
-		n.H = 10*(abs(n.x - End.x) + abs(n.y - End.y))
+			n.H = 10*(abs(n.x - self.End.x) + abs(n.y - self.End.y))
 	
-	
+	def PrintInfo(self):
+		for n in self.Openl:
+			print("Oi")
 	
 	

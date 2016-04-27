@@ -1,4 +1,3 @@
-import pygame 
 from Nodes import *
 
 def main():
@@ -13,14 +12,19 @@ def main():
 			searchSpace.append(n)
 			++count
 			
-	AStarGrid = AStar(searchSpace[4],searchSpace[76], searchSpace)		
-	AStarGrid.ManhattanDis()
-	AStarGrid.unWalkable()
-	AStarGrid.adj()
-	AStarGrid.adjParent()
+	AStarGrid = AStar(searchSpace[4],searchSpace[76], searchSpace)	
+	AStarGrid.AddStartingNode()
+	while(not AStarGrid.pathDone):
+		AStarGrid.ManhattanDis()
+		
+		AStarGrid.unWalkable()
+		AStarGrid.LowestF()
+		AStarGrid.adj()
+		
+		AStarGrid.PrintInfo()
 			
 		
-	pygame.init()
+	'''pygame.init()
 	WINDOW_SIZE = [255,255]
 	
 	screen = pygame.display.set_mode(WINDOW_SIZE)
@@ -28,7 +32,7 @@ def main():
 	pygame.display.set_caption("ADGP_!20")
 	
 	currentTime = pygame.time.get_ticks()
-	print(currentTime)
+	print(currentTime)'''
 	
 main()
 
