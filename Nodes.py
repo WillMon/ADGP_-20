@@ -1,10 +1,9 @@
 class Node(object):
 	#What a node is defined as 
-	def __init__(self,x = 0, y=0):
-		
+	def __init__(self,x = 0, y=0, index = 0):		
 		self.x = x
 		self.y = y
-		self.Index = 0
+		self.Index = index
 		self.parent = None
 		self.walk = True
 		self.G = 0
@@ -31,12 +30,12 @@ class AStar(object):
 		self.Start = Start
 		self.End = End 
 		self.currentNode = self.Start
-		self.pathDone = True
+		self.pathDone = False
 		
 		
 	#Checks for walkable Nodes 
 	def unWalkable(self):
-		for n in self.searchSpace:
+		for n in self.searchSpace:	#broke!!!!!!!!!!!!!!!!!!!!
 			if n.x == 0 or n.x == ((len(self.searchSpace)/len(self.searchSpace)) - 1):
 				n.walk = False
 			if n.y == 0 or n.y == ((len(self.searchSpace)/len(self.searchSpace)) - 1):
@@ -50,8 +49,9 @@ class AStar(object):
 		lowestF = -1 
 		nodeWithLowestF = None
 		for n in self.Openl:
-			lowestF =  n.F
-			nodeWithLowestF = n 
+			if n.F > lowestF:
+				lowestF =  n.F
+				nodeWithLowestF = n 
 		self.currentNode = nodeWithLowestF
 	
 	'''#Sets current node to its adjacent 
@@ -66,32 +66,49 @@ class AStar(object):
   		adjHolder = []
 		rowL = 10
 		
-		adjHolder.append(self.currentNode)
- 		adjHolder.append(self.searchSpace[self.currentNode.Index - rowL])
-		adjHolder.append(self.searchSpace[self.currentNode.Index + rowL])
-		adjHolder.append(self.searchSpace[self.currentNode.Index + 1])
-		adjHolder.append(self.searchSpace[self.currentNode.Index - 1])
-		adjHolder.append(self.searchSpace[self.currentNode.Index + rowL + 1])
- 		adjHolder.append(self.searchSpace[self.currentNode.Index + rowL - 1])
- 		adjHolder.append(self.searchSpace[self.currentNode.Index - rowL + 1])
- 		adjHolder.append(self.searchSpace[self.currentNode.Index - rowL - 1])
- 		
+		#adjHolder.append(self.currentNode)
+ 		#adjHolder.append(self.searchSpace[self.currentNode.Index - rowL])
+		#adjHolder.append(self.searchSpace[self.currentNode.Index + rowL])
+		#adjHolder.append(self.searchSpace[self.currentNode.Index + 1])
+		#adjHolder.append(self.searchSpace[self.currentNode.Index - 1])
+		#adjHolder.append(self.searchSpace[self.currentNode.Index + rowL + 1])
+ 		#adjHolder.append(self.searchSpace[self.currentNode.Index + rowL - 1])
+ 		#adjHolder.append(self.searchSpace[self.currentNode.Index - rowL + 1])
+ 		#adjHolder.append(self.searchSpace[self.currentNode.Index - rowL - 1])
+		
+		adjHolder.append(self.currentNode.Index - rowL)
+		adjHolder.append(self.currentNode.Index + rowL)
+		adjHolder.append(self.currentNode.Index + 1)
+		adjHolder.append(self.currentNode.Index - 1)
+		adjHolder.append(self.currentNode.Index + rowL + 1)
+ 		adjHolder.append(self.currentNode.Index + rowL - 1)
+ 		adjHolder.append(self.currentNode.Index - rowL + 1)
+ 		adjHolder.append(self.currentNode.Index - rowL - 1)
+		
+		for ah in adjHolder:
+			if ah >= 0 and ah < 100:
+				if self.searchSpace[ah].walkable or self.searchSpace[ah] not in self.Openl:
+					self.Openl.append(self.searchSpace[ah])
+					self.searchSpace[ah].parent = self.currentNode
+				
 		ph = set(adjHolder)
 		ol = set(self.Openl)
 		
-		for ah in adjHolder:
-			if(not ah.walk or not ph.intersection(ol)):
-				ah.parent = self.currentNode
-				self.Openl.append(ah)
+		'''for ah in adjHolder:
+			#if not ah.walk or [i for i in adjHolder if not i in self.Openl]:
+				if ah != None:
+					#print str(ah.x) + "," + str(ah.y) + " = " + str(ah.Index)
+					ah.parent = self.currentNode
+					self.Openl.append(ah)'''
  	
 	#Sets the adjacent Nodes G Coast 	
 	def adjGcost(self):
 		for ol in self.Openl:
-			
-			if abs(ol.Index - self.current.Index)  == 11 or abs(ol.Index - self.current.Index) == 9 :
+			if abs(ol.Index - self.currentNode.Index)  == 11 or abs(ol.Index - self.currentNode.Index) == 9 :
 				ol.G = 14
 			else:
 				ol.G = 10
+			
 	
 	'''def closeL(self):
 		self.closeL.append(currentNode)'''
@@ -101,9 +118,17 @@ class AStar(object):
 	def ManhattanDis(self):
 		for n in self.searchSpace:
 			n.H = 10*(abs(n.x - self.End.x) + abs(n.y - self.End.y))
-	
+			
+			
+	#Tra 
+	def ReachedGoel(self):
+		if self.currentNode == self.End:
+			self.pathDone = True
+			
 	def PrintInfo(self):
-		for n in self.Openl:
-			print("Oi")
+		#for n in self.Openl:
+		#print(self.currentNode.Index)
+		print ""
+	
 	
 	

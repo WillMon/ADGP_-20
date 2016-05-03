@@ -1,3 +1,3 @@
-import sys,pygame,Nodes
-start C:\Python27\python %~dp0\Main.py
+@echo off 
+start C:\Python27\python.exe Main.py
 pause
