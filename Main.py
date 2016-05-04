@@ -11,7 +11,7 @@ def main():
 			searchSpace.append(n)
 			count += 1
 			
-	AStarGrid = AStar(searchSpace[4],searchSpace[76], searchSpace)	
+	AStarGrid = AStar(searchSpace[13],searchSpace[76], searchSpace)	
 	AStarGrid.AddStartingNode()		
 	AStarGrid.unWalkable()
 	AStarGrid.ManhattanDis()

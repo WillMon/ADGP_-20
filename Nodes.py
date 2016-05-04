@@ -1,3 +1,4 @@
+from math import *
 class Node(object):
 	#What a node is defined as 
 	def __init__(self,x = 0, y=0, index = 0):		
@@ -87,7 +88,10 @@ class AStar(object):
 		
 		for ah in adjHolder:
 			if ah >= 0 and ah < 100:
-				if self.searchSpace[ah].walkable or self.searchSpace[ah] not in self.Openl:
+				if not self.searchSpace[ah].walk or self.searchSpace[ah] in self.Openl:
+					print "No new added to Open List"
+					print str(self.searchSpace[ah].walk) + " " + str(self.searchSpace[ah].Index)
+				else:	
 					self.Openl.append(self.searchSpace[ah])
 					self.searchSpace[ah].parent = self.currentNode
 				
@@ -122,8 +126,9 @@ class AStar(object):
 			
 	#Tra 
 	def ReachedGoel(self):
-		if self.currentNode == self.End:
-			self.pathDone = True
+		if self.End in self.Openl:
+			self.pathDone = False
+		
 			
 	def PrintInfo(self):
 		#for n in self.Openl:
