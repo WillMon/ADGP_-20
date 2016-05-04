@@ -11,7 +11,7 @@ def main():
 			searchSpace.append(n)
 			count += 1
 			
-	AStarGrid = AStar(searchSpace[13],searchSpace[76], searchSpace)	
+	AStarGrid = AStar(searchSpace[4],searchSpace[76], searchSpace)	
 	AStarGrid.AddStartingNode()		
 	AStarGrid.unWalkable()
 	AStarGrid.ManhattanDis()
@@ -26,16 +26,16 @@ def main():
 		AStarGrid.ReachedGoel()
 		AStarGrid.PrintInfo()
 			
-	print("Completed")
+	'''print("Completed")
 	pygame.init()
 	WINDOW_SIZE = [255,255]
-	
+                        
 	screen = pygame.display.set_mode(WINDOW_SIZE)
-	
+                        
 	pygame.display.set_caption("ADGP_!20")
-	
+                        
 	currentTime = pygame.time.get_ticks()
-	print(currentTime)
+	print(currentTime)'''
 	
 main()
 

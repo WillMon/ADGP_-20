@@ -1,3 +1,4 @@
+import math 
 from math import *
 class Node(object):
 	#What a node is defined as 
@@ -37,9 +38,9 @@ class AStar(object):
 	#Checks for walkable Nodes 
 	def unWalkable(self):
 		for n in self.searchSpace:	#broke!!!!!!!!!!!!!!!!!!!!
-			if n.x == 0 or n.x == ((len(self.searchSpace)/len(self.searchSpace)) - 1):
+			if n.x == 0 or n.x == sqrt(len(self.searchSpace)) - 1:
 				n.walk = False
-			if n.y == 0 or n.y == ((len(self.searchSpace)/len(self.searchSpace)) - 1):
+			if n.y == 0 or n.y == sqrt(len(self.searchSpace)) - 1:
 				n.walk = False
 			else:
 				n.walk =  True
@@ -53,6 +54,7 @@ class AStar(object):
 			if n.F > lowestF:
 				lowestF =  n.F
 				nodeWithLowestF = n 
+		self.closeL.append(self.currentNode)		
 		self.currentNode = nodeWithLowestF
 	
 	'''#Sets current node to its adjacent 
@@ -88,13 +90,21 @@ class AStar(object):
 		
 		for ah in adjHolder:
 			if ah >= 0 and ah < 100:
-				if not self.searchSpace[ah].walk or self.searchSpace[ah] in self.Openl:
+				if self.searchSpace[ah].walk:
+					if self.searchSpace[ah] not in self.Openl:
+						self.searchSpace[ah].parent = self.currentNode
+						self.Openl.append(self.searchSpace[ah])
+						
+					else:
+						betterPath = self.Openl.index(self.searchSpace[ah])
+						if self.searchSpace[ah].G < self.Openl[betterPath].G:
+							self.Openl[betterPath] = self.searchSpace[ah]
+							
+
+				else:	
 					print "No new added to Open List"
 					print str(self.searchSpace[ah].walk) + " " + str(self.searchSpace[ah].Index)
-				else:	
-					self.Openl.append(self.searchSpace[ah])
-					self.searchSpace[ah].parent = self.currentNode
-				
+			
 		ph = set(adjHolder)
 		ol = set(self.Openl)
 		
@@ -126,14 +136,14 @@ class AStar(object):
 			
 	#Tra 
 	def ReachedGoel(self):
-		if self.End in self.Openl:
+		if self.End in self.closeL:
 			self.pathDone = False
 		
 			
 	def PrintInfo(self):
 		#for n in self.Openl:
 		#print(self.currentNode.Index)
-		print ""
+		print self.currentNode.Index 
 	
 	
 	
