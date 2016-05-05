@@ -20,8 +20,9 @@ def main():
 	
 	#while(not AStarGrid.pathDone):
 	while(not AStarGrid.End in AStarGrid.Openl):
-		AStarGrid.LowestF()
 		AStarGrid.adj()
+		AStarGrid.LowestF()
+		
 		AStarGrid.adjGcost()
 		AStarGrid.ReachedGoel()
 		AStarGrid.PrintInfo()

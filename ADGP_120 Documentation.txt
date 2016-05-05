@@ -1,3 +1,39 @@
+William Monter               						ADGP_120 
+wam 116								Assessment_6
+Due Date: 05/5/2016 12:00am
+
+
+I Requirements Documentation
+
+You are tasked with implementing AI behaviors and pathfinding within 
+the python script in a sandboxed 2D environment. You must be able to 
+deploy/place AI entities within your 2D environment and assign them
+specific behaviors or waypoints that they should navigate to. 
+You should also enable the ability to place obstacles (or disable 
+areas) in your environment to change the path that your entities must navigate. 
+
+I.1. Description of the Problem
+Could not meet full criteria of the assessment. Program has passed data 
+collecting setting  starting location end location. Though able to collect 
+most of the data and able to set up the A* algorithm I only seem to get a 
+Infinite loop of the current node. The Program itself seems promising. 
+I can’t seem to clear this issue with the remaining time til the due date is met. 
+
+A* Algorithm Gets user Starting point end point and the grid itself.Sets the Manhattan 
+distance for all the node in the grid from there point to the end. Set the starting 
+node to the current and add the current node to the open list.  
+Checks the open list for the lowest F and set that to the new current node and privose 
+current node will be sent to the closed list. Gathers the adjacent nodes of the current 
+node and adds them to the open list. This only occurs if the node is not already in the 
+open list or if it not a wall. If there is a similar node in the list check for the lowest 
+G and set that to the current parent. This loops until the end point is in the closed list. 
+The shortest path will track back by following back the parents of the nodes from the end point 
+to the start. That's the base of the algorithm  
+
+
+
+
+
 import math 
 from math import *
 class Node(object):
@@ -128,6 +164,4 @@ class AStar(object):
 		#for n in self.Openl:
 		#print(self.currentNode.Index)
 		print self.currentNode.Index 
-	
-	
 	
