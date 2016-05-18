@@ -1,3 +1,6 @@
+import pygame
+import Nodes 
+from pygame import *
 from Nodes import *
 
 def main():
@@ -11,7 +14,7 @@ def main():
 			searchSpace.append(n)
 			count += 1
 			
-	AStarGrid = AStar(searchSpace[4],searchSpace[76], searchSpace)	
+	AStarGrid = AStar(searchSpace[45],searchSpace[76], searchSpace)	
 	AStarGrid.AddStartingNode()		
 	AStarGrid.unWalkable()
 	AStarGrid.ManhattanDis()
@@ -20,14 +23,14 @@ def main():
 	
 	#while(not AStarGrid.pathDone):
 	while(not AStarGrid.End in AStarGrid.Openl):
-		AStarGrid.adj()
-		AStarGrid.LowestF()
 		
+		AStarGrid.LowestF()
+		AStarGrid.adj()
 		AStarGrid.adjGcost()
 		AStarGrid.ReachedGoel()
 		AStarGrid.PrintInfo()
 			
-	'''print("Completed")
+	print("Completed")
 	pygame.init()
 	WINDOW_SIZE = [255,255]
                         
@@ -36,7 +39,32 @@ def main():
 	pygame.display.set_caption("ADGP_!20")
                         
 	currentTime = pygame.time.get_ticks()
-	print(currentTime)'''
+	print(currentTime)
+	
+	# -------- Main Program Loop -----------
+	while not done:
+		for event in pygame.event.get():  # User did something
+			if event.type == pygame.QUIT:  # If user clicked close
+				done = True	 # Flag that we are done so we exit this loop
+	
+	
+	
+	
+		# Set the screen background
+		screen.fill((0,0,0))
+	
+		for i in searchSpace:
+			i.draw(screen, (255,255,255))
+	
+		# Limit to 60 frames per second
+		clock.tick(60)
+	
+		# Go ahead and update the screen with what we've drawn.
+		pygame.display.flip()
+	
+	# Be IDLE friendly. If you forget this line, the program will 'hang'
+	# on exit.
+	pygame.quit()
 	
 main()
 
