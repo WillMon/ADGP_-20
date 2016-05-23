@@ -43,20 +43,29 @@ class AStar(object):
 		self.pathDone = False
 		
 		
-	#Creaks a boundery by making the outside Nodes self.walk = false;
+	#Creaks a boundery by making the outside Nodes self.walk = false; 
 	def unWalkable(self):
 		for n in self.searchSpace:	#broke!!!!!!!!!!!!!!!!!!!!
-			if n.x == 0 or n.x == sqrt(len(self.searchSpace)) - 1:
+			if n.x == 0 or n.x == 9:
 				n.walk = False
-			if n.y == 0 or n.y == sqrt(len(self.searchSpace)) - 1:
+			if n.y == 0 or n.y == 9:
 				n.walk = False
 			else:
 				n.walk =  True
 	def AddStartingNode(self):
 		self.Openl.append(self.Start)
-	#Gathers the lowest F 
+		
+	#Gathers the lowest F from the open list and replaces it with the current node 
 	def LowestF(self):
-		lowestF = -1 
+	
+		sorted(self.Openl, key=lambda node: node.F)
+		
+		self.closeL.append(self.Openl[0])
+		self.currentNode = self.Openl[0]
+		del self.Openl[0]
+		
+		
+		'''lowestF = -1 
 		nodeWithLowestF = None
 		for n in self.Openl:
 			if n.F > lowestF:
@@ -64,11 +73,11 @@ class AStar(object):
 				nodeWithLowestF = n 
 		self.closeL.append(self.currentNode)		
 		self.currentNode = nodeWithLowestF
-		print nodeWithLowestF.Index		
+		print nodeWithLowestF.Index		'''
 	# Places current nodes adjacents in the Open List
 	#aslong as its walkable or not already in the Open List  			
 	def adj(self):
-  		adjHolder = []
+  		adjHolder = [] 
 		rowL = 10
 		#Appends adjacent nodes to the dummy array 
 		adjHolder.append(self.currentNode.Index - rowL)
@@ -79,14 +88,14 @@ class AStar(object):
  		adjHolder.append(self.currentNode.Index + rowL - 1)
  		adjHolder.append(self.currentNode.Index - rowL + 1)
  		adjHolder.append(self.currentNode.Index - rowL - 1)
-		
+		#Checks to see if to see that the index has not passed 0 & 100
 		for ah in adjHolder:
 			if ah >= 0 and ah < 100:
 				if self.searchSpace[ah].walk:
 					if self.searchSpace[ah] not in self.Openl:
 						self.searchSpace[ah].parent = self.currentNode
 						self.Openl.append(self.searchSpace[ah])
-						print(self.searchSpace[ah].Index)
+						#print(self.searchSpace[ah].Index)
 						
 					else:
 						betterPath = self.Openl.index(self.searchSpace[ah])
@@ -130,25 +139,20 @@ class AStar(object):
 			
 	#Stops Loop Once the ending node is found in the end list 
 	def ReachedGoel(self):
-		if self.End in self.closeL:
+		if self.End in self.Openl:
 			self.pathDone = False
 		
 			
 	def PrintInfo(self):
-		#for n in self.Openl:
+		#for n in self.closeL:
 		#print(self.currentNode.Index)
-		rowL = 10
-
-                '''print(self.currentNode.Index - rowL)
-                print(self.currentNode.Index + rowL)
-                print(self.currentNode.Index + 1)
-                print(self.currentNode.Index - 1)
-                print(self.currentNode.Index + rowL + 1)
-                print(self.currentNode.Index + rowL - 1)
-                print(self.currentNode.Index - rowL + 1)
-                print(self.currentNode.Index - rowL - 1)
-		'''
-		
+			#print n.Index
+			placeHolder = self.End.parent
+			while placeHolder != self.Start:
+				print placeHolder.Index
+				placeHolder = placeHolder.parent
+				
+			
 		
 		
 		

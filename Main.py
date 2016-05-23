@@ -1,6 +1,6 @@
-import pygame
+#import pygame
 import Nodes 
-from pygame import *
+#from pygame import *
 from Nodes import *
 
 def main():
@@ -23,12 +23,12 @@ def main():
 	
 	#while(not AStarGrid.pathDone):
 	while(not AStarGrid.End in AStarGrid.Openl):
-		
-		AStarGrid.LowestF()
 		AStarGrid.adj()
+		AStarGrid.LowestF()
 		AStarGrid.adjGcost()
 		AStarGrid.ReachedGoel()
-		AStarGrid.PrintInfo()
+		
+	AStarGrid.PrintInfo()
 			
 	print("Completed")
 	pygame.init()
