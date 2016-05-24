@@ -16,6 +16,7 @@ class Node(object):
 		self.Index = index #Placement in the array 
 		self.parent = None #Nodes parent Holder 
 		self.walk = True   #
+		self.symbol = "O"
 		self.G = 0
 		self.H = 0
 		self.F = self.G + self.H
@@ -35,7 +36,8 @@ class AStar(object):
 	
 	def __init__(self,Start, End, searchSpace):
 		self.Openl = []   #Holds nodes that meet t
-		self.closeL = []		
+		self.closeL = []	
+		self.path = []
 		self.searchSpace = searchSpace
 		self.Start = Start
 		self.End = End 
@@ -46,12 +48,14 @@ class AStar(object):
 	#Creaks a boundery by making the outside Nodes self.walk = false; 
 	def unWalkable(self):
 		for n in self.searchSpace:	#broke!!!!!!!!!!!!!!!!!!!!
+			#self.searchSpace[55].walk = False
 			if n.x == 0 or n.x == 9:
 				n.walk = False
 			if n.y == 0 or n.y == 9:
 				n.walk = False
 			else:
 				n.walk =  True
+				
 	def AddStartingNode(self):
 		self.Openl.append(self.Start)
 		
@@ -105,8 +109,8 @@ class AStar(object):
 								
 
 				else:	
-					print "No new added to Open List"
-					print str(self.searchSpace[ah].walk) + " " + str(self.searchSpace[ah].Index)
+					'''print "No new added to Open List"
+					print str(self.searchSpace[ah].walk) + " " + str(self.searchSpace[ah].Index)'''
 			
 		ph = set(adjHolder)
 		ol = set(self.Openl)
@@ -141,17 +145,28 @@ class AStar(object):
 	def ReachedGoel(self):
 		if self.End in self.Openl:
 			self.pathDone = False
-		
+		for n in self.searchSpace:
+			if n == self.Start:
+				n.symbol = "@"
+			if n in self.Openl:
+				n.symbol = "*"
+			if n in self.path:
+				n.symbol = "#"	
+	def Endpath(self):
+		placeHolder = self.End
+		while placeHolder != self.Start:
+				self.path.append(placeHolder.parent)
+				placeHolder = placeHolder.parent
 			
 	def PrintInfo(self):
 		#for n in self.closeL:
 		#print(self.currentNode.Index)
 			#print n.Index
-			placeHolder = self.End.parent
-			while placeHolder != self.Start:
-				print placeHolder.Index
-				placeHolder = placeHolder.parent
-				
+		for indx in self.searchSpace:
+			if indx.y != 9: 
+				print indx.symbol  + "||",
+			else:
+				print indx.symbol + "||"
 			
 		
 		

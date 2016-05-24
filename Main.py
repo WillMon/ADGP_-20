@@ -1,6 +1,5 @@
-#import pygame
+import sys, pygame
 import Nodes 
-#from pygame import *
 from Nodes import *
 
 def main():
@@ -8,6 +7,9 @@ def main():
 	Start = Node(5,5)
 	End = Node(9,9)
 	count = 0
+	
+	done = False
+	single = [0,1,2,3,4,5,6,7,8,9]
 	for x in range(10):
 		for y in range(10):
 			n = Node(x,y, count)
@@ -27,11 +29,14 @@ def main():
 		AStarGrid.LowestF()
 		AStarGrid.adjGcost()
 		AStarGrid.ReachedGoel()
-		
+	AStarGrid.Endpath()
+	AStarGrid.ReachedGoel()
+	
+	
 	AStarGrid.PrintInfo()
 			
 	print("Completed")
-	pygame.init()
+	'''pygame.init()
 	WINDOW_SIZE = [255,255]
                         
 	screen = pygame.display.set_mode(WINDOW_SIZE)
@@ -64,7 +69,7 @@ def main():
 	
 	# Be IDLE friendly. If you forget this line, the program will 'hang'
 	# on exit.
-	pygame.quit()
+	pygame.quit()'''
 	
 main()
 
