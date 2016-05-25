@@ -19,7 +19,7 @@ class Node(object):
 		self.symbol = "O"
 		self.G = 0
 		self.H = 0
-		self.F = self.G + self.H
+		self.F = 0
 		
 	'''def setF(self):
 		self.F = self.G + self.H
@@ -51,19 +51,21 @@ class AStar(object):
 			#self.searchSpace[55].walk = False
 			if n.x == 0 or n.x == 9:
 				n.walk = False
-			if n.y == 0 or n.y == 9:
+			elif  n.y == 0 or n.y == 9:
 				n.walk = False
 			else:
 				n.walk =  True
-				
+		self.searchSpace[44].walk = False	
+		self.searchSpace[34].walk = False	
 	def AddStartingNode(self):
 		self.Openl.append(self.Start)
 		
 	#Gathers the lowest F from the open list and replaces it with the current node 
-	def LowestF(self):
-	
-		sorted(self.Openl, key=lambda node: node.F)
-		
+	def Sort(self):
+		for n in self.Openl:
+			n.F = n.G + n.H
+		sorted(self.Openl, key=lambda Node: Node.F)
+	def LowestF(self):	
 		self.closeL.append(self.Openl[0])
 		self.currentNode = self.Openl[0]
 		del self.Openl[0]
@@ -95,33 +97,18 @@ class AStar(object):
 		#Checks to see if to see that the index has not passed 0 & 100
 		for ah in adjHolder:
 			if ah >= 0 and ah < 100:
-				if self.searchSpace[ah].walk:
+				if self.searchSpace[ah].walk and self.searchSpace[ah] not in self.closeL:
 					if self.searchSpace[ah] not in self.Openl:
-						self.searchSpace[ah].parent = self.currentNode
 						self.Openl.append(self.searchSpace[ah])
-						#print(self.searchSpace[ah].Index)
+						self.searchSpace[ah].parent = self.currentNode
 						
-					else:
-						betterPath = self.Openl.index(self.searchSpace[ah])
-						for n in self.Openl:
-							if self.searchSpace[ah].G < self.Openl[betterPath].G:
-								self.Openl[betterPath] = self.searchSpace[ah]
-								
-
-				else:	
-					'''print "No new added to Open List"
-					print str(self.searchSpace[ah].walk) + " " + str(self.searchSpace[ah].Index)'''
-			
-		ph = set(adjHolder)
-		ol = set(self.Openl)
-		
-		'''for ah in adjHolder:
-			#if not ah.walk or [i for i in adjHolder if not i in self.Openl]:
-				if ah != None:
-					#print str(ah.x) + "," + str(ah.y) + " = " + str(ah.Index)
-					ah.parent = self.currentNode
-					self.Openl.append(ah)'''
- 	
+				   	else:
+						
+						movecost = self.searchSpace[ah].G + self.currentNode.G
+			   			if movecost < self.searchSpace[ah].G:
+			   				self.searchSpace[ah].parent = self.currentNode
+							self.searchSpace[ah].G = movecost
+               
 	#Sets the adjacent Nodes G Coast 	
 	def adjGcost(self):
 		for ol in self.Openl:
@@ -129,44 +116,48 @@ class AStar(object):
 				ol.G = 14
 			else:
 				ol.G = 10
-			
-	
-	'''def closeL(self):
-		self.closeL.append(currentNode)'''
-		
-	
+
 	#Uses the Manhattan Formula to set the H for the nodes in the Search Space
 	def ManhattanDis(self):
 		for n in self.searchSpace:
 			n.H = 10*(abs(n.x - self.End.x) + abs(n.y - self.End.y))
-			
-			
+	
 	#Stops Loop Once the ending node is found in the end list 
 	def ReachedGoel(self):
 		if self.End in self.Openl:
 			self.pathDone = False
+			
+	#Set the Symbold for the gride 
+	def SetSymbols(self):
 		for n in self.searchSpace:
-			if n == self.Start:
+			if n.walk == False:
+				n.symbol = "="
+			#Sets the symbol for the starting node 
+			elif n == self.Start:
 				n.symbol = "@"
-			if n in self.Openl:
-				n.symbol = "*"
-			if n in self.path:
+			#Sets the symbol for the End node
+			elif n == self.End:
+				n.symbol = "X" 
+			#Sets the Symbol for the path
+			elif n in self.path:
 				n.symbol = "#"	
+
+	#Takes the parent of each node starting 
+	#with the end node till it reaches the starting node
+	#As it does that it adds it to the path list
 	def Endpath(self):
 		placeHolder = self.End
 		while placeHolder != self.Start:
-				self.path.append(placeHolder.parent)
-				placeHolder = placeHolder.parent
+			self.path.append(placeHolder.parent)
+			placeHolder = placeHolder.parent
 			
+	#Print out the gride structured for this project 
 	def PrintInfo(self):
-		#for n in self.closeL:
-		#print(self.currentNode.Index)
-			#print n.Index
 		for indx in self.searchSpace:
-			if indx.y != 9: 
-				print indx.symbol  + "||",
+			if indx.x != 9: 
+				print str(indx.symbol)  + "||",
 			else:
-				print indx.symbol + "||"
+				print str(indx.symbol) + "||"
 			
 		
 		
